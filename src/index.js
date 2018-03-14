@@ -9,7 +9,12 @@ const createNotEnumerableProperty = (prop) => {
     return prop;
 };
 
-const createProtoMagicObject = () => {};
+const createProtoMagicObject = () => {
+    let magicO = function() {};
+    magicO.prototype = magicO.__proto__;
+    return magicO;
+};
+
 const incrementor = () => {};
 const asyncIncrementor = () => {};
 const createIncrementer = () => {};
@@ -23,9 +28,13 @@ const returnBackInSecond = ( item ) => {
     } );
 };
 
-const getDeepPropertiesCount = () => {};
+const getDeepPropertiesCount = (obj) => {
+    
+    return JSON.stringify(obj).match(/\:/g).length;
+};
 
 const createSerializedObject = () => {
+    //Object.prototype.valueOf = () => JSON.stringify(this);
     
     return JSON.parse( JSON.stringify( {} ) );
 };
