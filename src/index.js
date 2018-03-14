@@ -24,9 +24,26 @@ const returnBackInSecond = ( item ) => {
 };
 
 const getDeepPropertiesCount = () => {};
-const createSerializedObject = () => {};
-const toBuffer = () => {};
-const sortByProto = () => {};
+
+const createSerializedObject = () => {
+    
+    return JSON.parse( JSON.stringify( {} ) );
+};
+
+const sortByProto = (arr) => {
+    let tempArr = [];
+    
+    arr.forEach( element => {
+        tempArr.push( [element, element.__proto__] );
+    });
+    
+    tempArr.sort( (a, b) => {
+        if ( a[1] > b[1] ) return 1;
+        if ( a[1] < b[1] ) return -1; 
+    } );
+
+    return tempArr.map( arr => arr[0] );
+};
 
 exports.createEnumerableProperty = createEnumerableProperty;
 exports.createNotEnumerableProperty = createNotEnumerableProperty;
