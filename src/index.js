@@ -15,9 +15,50 @@ const createProtoMagicObject = () => {
     return magicO;
 };
 
-const incrementor = () => {};
+const incrementor = ((i) => {
+    return function() {
+    i++;
+    function count() { 
+        i++;
+        return count;
+    };
+    
+    count.valueOf = () => i;
+
+    return count;
+    }
+})(0);
+
 const asyncIncrementor = () => {};
-const createIncrementer = () => {};
+
+const createIncrementer = () => {
+    let obj = {
+        'from': 1,
+        'to': 20,
+
+        [Symbol.iterator]() {
+            return this;
+        },
+
+        next() {
+            if ( this.current == undefined ) {
+                this.current = this.from;
+            }
+            if ( this.current <= this.to ) {
+                return {
+                    'done': false,
+                    'value': this.current++
+                }
+            } else {
+                return {
+                    'done': true
+                }
+            }
+        }
+    };
+
+    return obj;
+};
 
 
 // return same argument not earlier than in one second, and not later, than in two
@@ -34,9 +75,8 @@ const getDeepPropertiesCount = (obj) => {
 };
 
 const createSerializedObject = () => {
-    //Object.prototype.valueOf = () => JSON.stringify(this);
-    
-    return JSON.parse( JSON.stringify( {} ) );
+        
+    return null;
 };
 
 const sortByProto = (arr) => {
