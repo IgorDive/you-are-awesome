@@ -29,7 +29,16 @@ const incrementor = ((i) => {
     }
 })(0);
 
-const asyncIncrementor = () => {};
+const asyncIncrementor = ((i) => {
+    return function() {
+        return new Promise( (resolve, reject) => {
+            setTimeout( () => {
+                i++;
+                resolve(i);
+            }, 0 );
+        } );
+    };    
+})(0);
 
 const createIncrementer = () => {
     let obj = {
